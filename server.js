@@ -3,14 +3,15 @@ const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
 
+
 const app = express();
 
 //BodyParser Middleware
 app.use(express.json());
 
 // DB Config
-// const db = config.get('mongoURI');
-const db = process.env.mongoURI;
+const db = config.get('mongoURI');
+//const db = process.env.mongoURI;
 
 // Connect to Mongo
 mongoose
@@ -22,10 +23,10 @@ mongoose
     .then(() => console.log("MongoDB Connected..."))
     .catch(err => console.log(err));
 
-//Use Routes
 
-app.use('/api/items', require('./routes/api/items'));
-app.use('/api/notes', require('./routes/api/notes'));
+//Use Routes
+app.use('/api/projects', require('./routes/api/projects'));
+app.use('/api/remarks', require('./routes/api/remarks'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 

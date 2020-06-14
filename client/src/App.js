@@ -1,29 +1,24 @@
 import React, { Component } from 'react';
-
-import { Router, View } from "react-navi";
-
 import { Provider } from 'react-redux';
+
 import store from './store';
 import { loadUser } from './actions/authActions';
-import routes from './routes'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import 'bootswatch/dist/journal/bootstrap.min.css';
 
 
-
-
-
+// import "./styles/style.css";
+import Routes from './routes/routes';
 class App extends Component {
+
   componentDidMount() {
     store.dispatch(loadUser());
   }
   render() {
     return (
       <Provider store={store}>
-        <Router routes={routes}>
-          <View />
-        </Router>
+        <Routes />
       </Provider>
     );
   }

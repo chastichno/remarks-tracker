@@ -1,22 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
-    NavbarBrand,
     Nav,
-    NavItem,
-    NavLink,
     Container
-} from 'reactstrap';
+} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import RegisterModal from "./auth/RegisterModal.js";
 import LoginModal from "./auth/LoginModal.js";
 import Logout from "./auth/Logout.js";
-import './Components.css';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.svg';
+
 
 class AppNavBar extends Component {
 
@@ -38,44 +33,41 @@ class AppNavBar extends Component {
 
         const authLinks = (
             <Fragment>
-                <NavItem>
-                    <NavLink className="modalButton" href='/dashboard'>
+                <Nav.Item className="nav-item active">
+                    <a className="nav-link" href='/projects'>
                         {user ?
-                         user.name : ''}
-                    </NavLink>
-                </NavItem>
-                <NavItem>
+                            user.name : ''}
+                    </a>
+                </Nav.Item>
+                <Nav.Item className="nav-item active">
                     <Logout />
-                </NavItem>
+                </Nav.Item>
             </Fragment>
         );
 
         const guestLinks = (
             <Fragment>
-                <NavItem>
+                <Nav.Item className="nav-item active">
                     <RegisterModal />
-                </NavItem>
-                <NavItem>
+                </Nav.Item>
+                <Nav.Item className="nav-item active">
                     <LoginModal />
-                </NavItem>
+                </Nav.Item>
             </Fragment>
         );
 
         return (
-
-            <div>
-                <Navbar expand="sm" className="mb-5 navbar">
+                <Navbar expand="lg" className="navbar navbar-expand-md navbar-dark bg-primary">
                     <Container>
-                        <NavbarBrand className="logo" href="/"><img src={logo} width="100px" alt="logo" />WriteUp</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
+                        <Navbar.Brand className="logo" href="/"><img src={logo} width="35px" alt="logo" />  Re:Mark</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="navbar-nav mr-auto" navbar>
                                 {isAuthenticated ? authLinks : guestLinks}
                             </Nav>
-                        </Collapse>
+                        </Navbar.Collapse>
                     </Container>
                 </Navbar>
-            </div>
         )
     }
 }

@@ -1,26 +1,20 @@
-import React, { Component } from "react";
-
+import React, { Component, Fragment } from "react";
 import {
     Button,
     Modal,
-    ModalHeader,
-    ModalBody,
     Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
     Alert
-} from 'reactstrap';
+} from 'react-bootstrap';
+import { Link } from 'react-navi';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
-import '../Components.css';
 
 class RegisterModal extends Component {
     state = {
-        modal: false,
+        modalShow: false,
         name: '',
         email: '',
         password: '',
@@ -46,8 +40,8 @@ class RegisterModal extends Component {
         }
 
         //If uathenticated, close modal
-        if(this.state.modal) {
-            if(isAuthenticated) {
+        if (this.state.modalShow) {
+            if (isAuthenticated) {
                 this.toggle();
             }
         }
@@ -56,7 +50,7 @@ class RegisterModal extends Component {
     toggle = () => {
         this.props.clearErrors();
         this.setState({
-            modal: !this.state.modal
+            modalShow: !this.state.modalShow
         });
     };
 
@@ -84,61 +78,67 @@ class RegisterModal extends Component {
 
     render() {
         return (
-            <div>
-                <NavLink onClick={this.toggle} href="#"  className="modalButton">
+            <Fragment>
+                <Link onClick={this.toggle} href="#" className="nav-link">
                     Register
-                </NavLink>
+                </Link>
                 <Modal
-                    isOpen={this.state.modal}
-                    toggle={this.toggle}
+                    show={this.state.modalShow}
+                    onHide={this.toggle}
+                    size="md"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
                 >
-                    <ModalHeader toggle={this.toggle}>Register</ModalHeader>
-                    <ModalBody>
-                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            Register
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <Form onSubmit={this.onSubmit}>
-                            <FormGroup>
 
-                                <Label for="name">Name</Label>
-                                <Input
+                            {this.state.msg ?
+                            (<div class="alert alert-dismissible alert-primary">
+                                <strong>Oops!</strong>
+                                <p>{this.state.msg}</p>
+                            </div>)
+                            : null}
+                            <Form.Group controlId="registerName" onSubmit={this.onSubmit}>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
                                     type="text"
                                     name="name"
-                                    id="name"
-                                    placeholder="Name"
-                                    className="mb-3"
+                                    placeholder="Enter your name"
                                     onChange={this.onChange}
                                 />
+                            </Form.Group>
 
-                                <Label for="email">Email</Label>
-                                <Input
+                            <Form.Group controlId="registerEmail" onSubmit={this.onSubmit}>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
                                     type="email"
                                     name="email"
-                                    id="email"
-                                    placeholder="Email"
-                                    className="mb-3"
+                                    placeholder="Enter your email"
                                     onChange={this.onChange}
                                 />
+                            </Form.Group>
 
-                                <Label for="password">Password</Label>
-                                <Input
+                            <Form.Group controlId="registerPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
                                     type="password"
                                     name="password"
-                                    id="password"
-                                    placeholder="Password"
-                                    className="mb-3"
+                                    placeholder="Enter your password"
                                     onChange={this.onChange}
                                 />
-
-                                <Button
-                                    color="dark"
-                                    style={{ marginTop: '2rem' }}
-                                    block
-                                >Register
-                                </Button>
-                            </FormGroup>
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Register
+                            </Button>
                         </Form>
-                    </ModalBody>
+                    </Modal.Body>
                 </Modal>
-            </div>
+            </Fragment>
         )
     }
 }

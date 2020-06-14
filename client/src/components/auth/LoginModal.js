@@ -1,30 +1,24 @@
-import React, { Component } from "react";
-
+import React, { Component, Fragment } from "react";
 import {
-    Button,
     Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
-    Alert
-} from 'reactstrap';
+    Button,
+    Form
+} from "react-bootstrap";
+import { Link } from 'react-navi';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
-import '../Components.css';
+
 
 class LoginModal extends Component {
     state = {
-        modal: false,
+        modalShow: false,
         email: '',
         password: '',
         msg: null
-    };
+    }
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
@@ -45,7 +39,7 @@ class LoginModal extends Component {
         }
 
         //If uathenticated, close modal
-        if (this.state.modal) {
+        if (this.state.modalShow) {
             if (isAuthenticated) {
                 this.toggle();
             }
@@ -55,7 +49,7 @@ class LoginModal extends Component {
     toggle = () => {
         this.props.clearErrors();
         this.setState({
-            modal: !this.state.modal
+            modalShow: !this.state.modalShow
         });
     };
 
@@ -66,68 +60,68 @@ class LoginModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        const {email,password} = this.state;
-
         const user = {
-            email,
-            password
+            email: this.state.email,
+            password: this.state.password
         }
+
         //Attempt to Login
         this.props.login(user)
-        // window.location.href = "/dashboard";
+        // window.location.href = "/projects";
 
     }
 
     render() {
         return (
-            <div>
-                <NavLink onClick={this.toggle} href="#"  className="modalButton">
+            <Fragment>
+                <Link href="#" onClick={this.toggle} className="nav-link">
                     Login
-                </NavLink>
-                <Modal
-                    isOpen={this.state.modal}
-                    toggle={this.toggle}
-                >
-                    <ModalHeader toggle={this.toggle}>Login</ModalHeader>
-                    <ModalBody>
-                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-                        <Form onSubmit={this.onSubmit}>
-                            <FormGroup>
+                </Link>
 
-                                <Label for="email">Email</Label>
-                                <Input
+                <Modal
+                    show={this.state.modalShow}
+                    onHide={this.toggle}
+                    size="md"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            Login
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={this.onSubmit}>
+                            <Form.Group controlId="formNewEmail" onSubmit={this.onSubmit}>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
                                     type="email"
                                     name="email"
-                                    id="email"
-                                    placeholder="Email"
-                                    className="mb-3"
+                                    placeholder="Enter email"
                                     onChange={this.onChange}
                                 />
+                            </Form.Group>
 
-                                <Label for="password">Password</Label>
-                                <Input
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
                                     type="password"
                                     name="password"
-                                    id="password"
-                                    placeholder="Password"
-                                    className="mb-3"
+                                    placeholder="Enter password"
                                     onChange={this.onChange}
                                 />
-
-                                <Button
-                                    color="dark"
-                                    style={{ marginTop: '2rem' }}
-                                    block
-                                >Login
-                                </Button>
-                            </FormGroup>
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Login
+                        </Button>
                         </Form>
-                    </ModalBody>
+                    </Modal.Body>
+
                 </Modal>
-            </div>
+            </Fragment>
         )
     }
-}
+};
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,

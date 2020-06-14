@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import taskReducer from './taskReducer';
-import noteReducer from './noteReducer';
+import projectReducer from './projectReducer';
 import errorReducer from './errorReducer';
 import authReducer from './authReducer';
+import remarkReducer from './remarkReducer';
 
 export default combineReducers({
-    task: taskReducer,
-    note: noteReducer,
+    project: projectReducer,
     error: errorReducer,
-    auth: authReducer
+    auth: authReducer,
+    remark: remarkReducer
 });

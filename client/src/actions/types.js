@@ -1,12 +1,15 @@
-export const GET_TASKS = 'GET_TASKS';
-export const ADD_TASK = 'ADD_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const TASKS_LOADING = 'TASKS_LOADING';
+export const GET_PROJECTS = 'GET_PROJECTS';
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const PROJECTS_LOADING = 'PROJECTS_LOADING';
+export const GET_SPECIFIC_PROJECT = 'GET_SPECIFIC_PROJECT';
 
-export const GET_NOTES = 'GET_NOTES';
-export const ADD_NOTE = 'ADD_NOTE';
-export const DELETE_NOTE = 'DELETE_NOTE';
-export const NOTES_LOADING = 'NOTES_LOADING';
+export const GET_REMARKS = 'GET_REMARKS';
+export const ADD_REMARK = 'ADD_REMARK';
+export const DELETE_REMARK = 'DELETE_REMARK';
+export const REMARKS_LOADING = 'REMARKS_LOADING';
+export const GET_SPECIFIC_REMARK = 'GET_SPECIFIC_REMARK';
+
 
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
