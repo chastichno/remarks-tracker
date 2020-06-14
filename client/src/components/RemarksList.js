@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import {
-    ListGroup,
     Button,
-    Container,
-    Row,
-    Col
+    Container
 } from "react-bootstrap";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { connect } from 'react-redux';
 import { getRemarks, deleteRemark } from '../actions/remarkActions';

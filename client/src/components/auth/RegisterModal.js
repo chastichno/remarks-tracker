@@ -2,8 +2,7 @@ import React, { Component, Fragment } from "react";
 import {
     Button,
     Modal,
-    Form,
-    Alert
+    Form
 } from 'react-bootstrap';
 import { Link } from 'react-navi';
 
