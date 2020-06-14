@@ -30,10 +30,11 @@ class ProjectModal extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-
+        const { isAuthenticated, user } = this.props.auth;
+        console.log("USER = ", user._id);
         const newProject = {
             title: this.state.title,
-            users: [this.state.users]
+            users: [user._id].concat(this.state.users.split(","))
         }
         console.log("ProjectModal = ", newProject);
         //Add item via AddProject action
@@ -44,7 +45,7 @@ class ProjectModal extends Component {
     }
 
     render() {
-        const { user } = this.props.auth;
+
         return (
             <>
                 <Button variant="primary" onClick={this.toggle}>
