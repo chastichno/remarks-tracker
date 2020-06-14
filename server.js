@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 // const config = require('config');
 const dotenv = require('dotenv');
-dotenv.config()
+dotenv.config();
 
 
 const app = express();
