@@ -92,6 +92,12 @@ class LoginModal extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.onSubmit}>
+                            {this.state.msg ?
+                                (<div class="alert alert-dismissible alert-danger">
+                                    <strong>Oops!</strong>
+                                    <p>{this.state.msg}</p>
+                                </div>)
+                                : null}
                             <Form.Group controlId="formNewEmail" onSubmit={this.onSubmit}>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control

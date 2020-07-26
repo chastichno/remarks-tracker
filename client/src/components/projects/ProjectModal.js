@@ -5,7 +5,7 @@ import {
     Form
 } from "react-bootstrap";
 import { connect } from 'react-redux';
-import { addProject } from '../actions/projectActions';
+import { addProject } from '../../actions/projectActions';
 import PropTypes from 'prop-types';
 
 
@@ -31,10 +31,10 @@ class ProjectModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const { isAuthenticated, user } = this.props.auth;
-        console.log("USER = ", user._id);
+        console.log("USERs = ", this.state.users);
         const newProject = {
             title: this.state.title,
-            users: [user._id].concat(this.state.users.split(","))
+            users: this.state.users.length === 0 ? [user.email] : [user.email].concat(this.state.users.split(RegExp(",*\\s")))
         }
         console.log("ProjectModal = ", newProject);
         //Add item via AddProject action
@@ -48,9 +48,9 @@ class ProjectModal extends Component {
 
         return (
             <>
-                <Button variant="primary" onClick={this.toggle}>
-                    Create new Project
-            </Button>
+                <Button className="modal__button" onClick={this.toggle}>
+                    Add Project
+                </Button>
 
                 <Modal
                     show={this.state.modalShow}
@@ -61,9 +61,10 @@ class ProjectModal extends Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Create new Project
+                            Create New Project
                     </Modal.Title>
                     </Modal.Header>
+
                     <Modal.Body>
                         {/* <h4>Create new Project</h4> */}
                         <p>
@@ -75,22 +76,22 @@ class ProjectModal extends Component {
                                 <Form.Control
                                     type="text"
                                     name="title"
-                                    placeholder="Enter project name"
+                                    placeholder="My new project"
                                     onChange={this.onChange}
                                 />
                             </Form.Group>
 
                             <Form.Group controlId="formBasicUsers">
-                                <Form.Label>Users</Form.Label>
+                                <Form.Label>Add teammates' emails divided by commas</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="users"
-                                    placeholder="Choose users"
+                                    placeholder="jenny@gmail.com, hello@summer.co.nz"
                                     onChange={this.onChange}
                                 />
                             </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Submit
+                            <Button className="modal__button" type="submit">
+                                Add Project
                         </Button>
                         </Form>
                     </Modal.Body>

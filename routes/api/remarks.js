@@ -34,7 +34,13 @@ router.post('/', auth, (req, res) => {
     const newRemark = new Remark({
         title: req.body.title,
         project: req.body.project,
-        severity: req.body.severity
+        severity: req.body.severity,
+        description: req.body.description,
+        user_added: req.body.user_added,
+        due_date: req.body.due_date,
+        status: req.body.status,
+        assigned_to: req.body.assigned_to,
+        comments: req.body.comments
     });
 
     newRemark.save()

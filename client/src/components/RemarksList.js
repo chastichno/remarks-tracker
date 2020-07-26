@@ -9,10 +9,12 @@ import { connect } from 'react-redux';
 import { getRemarks, deleteRemark } from '../actions/remarkActions';
 import PropTypes from 'prop-types';
 
+import ViewRemarkModal from "./ViewRemarkModal";
 
 class RemarksList extends Component {
     state = {
-        project: this.props.project_id
+        project: this.props.project_id,
+        users: this.props.users
     }
 
     componentDidMount() {
@@ -28,29 +30,47 @@ class RemarksList extends Component {
         const { isAuthenticated, user } = this.props.auth;
         console.log("RemarkList, isAuthentificated ", isAuthenticated);
 
+
         return (
-            <Container>
-                <table className="table table-hover table-responsive-md">
+            <div>
+                <table className="table table-hover table-responsive-lg">
                     <thead>
                         <tr className="table-light">
                             <th scope="col">Title</th>
-                            <th scope="col">Project</th>
                             <th scope="col">Severity</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Added by</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Added by</th>
                             <th scope="col">Info</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {!user ? '' :
                             remarks
                                 .filter(remark => remark.project.includes(this.state.project))
-                                .map(({ _id, title, project, severity, date }) => (
+                                .map(({ _id, title, severity, due_date, date, assigned_to, user_added, status, project, description, comments }) => (
                                     <tr>
                                         <th scope="row">{title}</th>
-                                                <td>{project}</td>
-                                                <td>{severity}</td>
-                                                <td>{date}</td>
-                                                <td><Button href="#">View</Button></td>
+                                        <th>{severity}</th>
+                                        <th>{due_date}</th>
+                                        <th>{date}</th>
+                                        <th>{assigned_to}</th>
+                                        <th>{user_added}</th>
+                                        <th><ViewRemarkModal
+                                            title={title}
+                                            project={project}
+                                            severity={severity}
+                                            description={description}
+                                            user_added={user_added}
+                                            due_date={due_date}
+                                            status={status}
+                                            assigned_to={assigned_to}
+                                            comments={comments}
+                                            remark_id={_id}
+                                        >View</ViewRemarkModal></th>
+                                        <th>{status}</th>
                                     </tr>
                                 ))}
                     </tbody>
@@ -84,7 +104,7 @@ class RemarksList extends Component {
                                     </CSSTransition>
                                 ))}
                 </ListGroup> */}
-            </Container>
+            </div>
         );
     };
 };

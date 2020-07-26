@@ -1,0 +1,58 @@
+.projects {
+  &__title {
+    // padding: 50px 50px 0;
+    margin-top: 50px;
+    text-align: center;
+    // font-size: 60px;
+  }
+  &__add {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  &__list {
+    &__filtering {
+      margin-bottom: 0.3rem;
+      justify-content: space-between;
+
+      .search {
+        font-size: 1rem;
+        input {
+          height: 20px;
+          max-width: 80%;
+        }
+      }
+      .sort {
+        font-size: 1rem;
+        text-align: right;
+        @include breakpoint-down(small) {
+          text-align: left;
+        }
+        select {
+          height: 20px;
+          border: none;
+          text-decoration: underline;
+        }
+        option {
+          font-family: inherit;
+          font-size: 1rem;
+          color: grey;
+          background-color: whitesmoke;
+        }
+      }
+    }
+
+    .card {
+      padding: 0;
+    }
+  }
+}
+
+.delete-project {
+  color: white;
+  position: absolute;
+  font-weight: 700;
+  font-size: 2rem;
+  top: 5px;
+  right: 15px;
+}

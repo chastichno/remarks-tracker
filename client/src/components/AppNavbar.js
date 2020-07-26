@@ -34,9 +34,10 @@ class AppNavBar extends Component {
         const authLinks = (
             <Fragment>
                 <Nav.Item className="nav-item active">
-                    <a className="nav-link" href='/projects'>
-                        {user ?
-                            user.name : ''}
+                    <a className="nav-link" href='/projects' style={{position:"relative", top: 4+"px"}} >
+                        {/* {user ?
+                            user.name : ''} */}
+                            Projects
                     </a>
                 </Nav.Item>
                 <Nav.Item className="nav-item active">
@@ -57,12 +58,12 @@ class AppNavBar extends Component {
         );
 
         return (
-                <Navbar expand="lg" className="navbar navbar-expand-md navbar-dark bg-primary">
+                <Navbar expand="lg" className="navbar navbar-expand-md navbar-light bg-light">
                     <Container>
                         <Navbar.Brand className="logo" href="/"><img src={logo} width="35px" alt="logo" />  Re:Mark</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="navbar-nav mr-auto" navbar>
+                            <Nav className="navbar-nav ml-auto" navbar>
                                 {isAuthenticated ? authLinks : guestLinks}
                             </Nav>
                         </Navbar.Collapse>

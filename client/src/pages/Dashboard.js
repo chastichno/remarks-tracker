@@ -9,6 +9,7 @@ import {
     Redirect
 } from "react-router-dom";
 import RemarksList from "../components/RemarksList";
+import { Container } from "react-bootstrap";
 
 
 class Dashboard extends Component {
@@ -19,35 +20,36 @@ class Dashboard extends Component {
 
     render() {
         const { projects } = this.props.project;
-        console.log("Dashboard ", this.props.match.params.id);
+        const { isAuthenticated, user } = this.props.auth;
+
+        const listOfUsers = projects.users;
+        console.log("Dashboard ", user, listOfUsers);
 
         const authContent = (
             <Fragment>
-                <div className="text-center container">
-                    <h2>{projects.title}</h2>
-                    {/* <div>{projects.date}</div>
-                <div>TEST</div>
-                <div>{projects._id}</div>
-                <div>{projects.users}</div>
-                <div>{this.props.match.params.id}</div> */}
-                    <RemarkModal project_id={this.props.match.params.id} />
-                </div>
-                <RemarksList project_id={this.props.match.params.id} />
+                <Container>
+                    <h2 className="projects__title">{projects.title}</h2>
+                    <div className="projects__add"><RemarkModal project_id={this.props.match.params.id} /></div>
+                </Container>
+                <div><RemarksList project_id={this.props.match.params.id} users={listOfUsers} /></div>
+
 
             </Fragment>
         )
         return (
-            <>
+            <div className="dashboard">
                 <AppNavbar />
                 <div>
-                    {this.props.auth.token ? (authContent) :
-                        (<Redirect
-                            to={{
-                                pathname: "/",
-                            }}
-                        />)}
+                    {
+                        this.props.auth.token
+                            ? (authContent) :
+                            (<Redirect
+                                to={{
+                                    pathname: "/",
+                                }}
+                            />)}
                 </div>
-            </>
+            </div>
         )
     }
 };
@@ -63,4 +65,6 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 })
 
-export default withRouter(connect(mapStateToProps, { getSpecificProject })(Dashboard));
+export default withRouter(connect(mapStateToProps, { getSpecificProject }, null, { pure: false })(Dashboard));
+
+// this.props.project.projects.users.includes(this.props.auth.user)

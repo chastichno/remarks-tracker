@@ -5,10 +5,10 @@ import store from './store';
 import { loadUser } from './actions/authActions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootswatch/dist/journal/bootstrap.min.css';
+import 'bootswatch/dist/lux/bootstrap.min.css';
+import "./styles/style.css";
 
 
-// import "./styles/style.css";
 import Routes from './routes/routes';
 class App extends Component {
 

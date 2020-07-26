@@ -18,6 +18,30 @@ const RemarkSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    description: {
+        type: String,
+        required: false
+    },
+    user_added: {
+        type: String,
+        required: true
+    },
+    due_date: {
+        type: Date,
+        required: false
+    },
+    status: {
+        type: String,
+        required: true
+    },
+    assigned_to: {
+        type: String,
+        required: false
+    },
+    comments: {
+        type: [String],
+        required: false
     }
 });
 

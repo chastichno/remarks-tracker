@@ -97,11 +97,10 @@ class RegisterModal extends Component {
                         <Form onSubmit={this.onSubmit}>
 
                             {this.state.msg ?
-                            (<div class="alert alert-dismissible alert-primary">
-                                <strong>Oops!</strong>
-                                <p>{this.state.msg}</p>
-                            </div>)
-                            : null}
+                                (<div class="alert alert-dismissible alert-danger">
+                                    <p><strong>Oops!</strong> {this.state.msg} </p>
+                                </div>)
+                                : null}
                             <Form.Group controlId="registerName" onSubmit={this.onSubmit}>
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control
